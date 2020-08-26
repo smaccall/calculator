@@ -1,3 +1,5 @@
+/* eslint no-eval: 0 */
+
 import React, {Component} from 'react';
 import './css/Calculator.css';
 import Button from './components/Button';
@@ -18,7 +20,7 @@ class Calculator extends Component{
 
     addToCurrent = (symbol) => {
         if(["/", "-","+", "*"].indexOf(symbol) > -1){
-            let {current, previous, nextIsReset} = this.state;
+            let {current, previous} = this.state;
             console.log(previous);
             previous = previous + current + symbol;
             this.setState({previous, nextIsReset: true})
@@ -40,10 +42,10 @@ class Calculator extends Component{
     }
 
     calculate = (symbol) =>{
-        let {current, previous, nextIsReset} = this.state;
+        let {current, previous} = this.state;
         previous= previous + current;
-        this.setState({previous})
-        var temp = previous.split(/(?:\+|-)/gi);
+        this.setState({previous});
+        
         current=eval(previous);
         this.setState({current, previous: [], nextIsReset: true});
     }
